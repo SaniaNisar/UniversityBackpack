@@ -1,0 +1,61 @@
+CREATE DATABASE ORDERS1
+use ORDERS1
+
+CREATE TABLE Customers (
+  CustomerNo VARCHAR(10) PRIMARY KEY,
+  Name VARCHAR(50),
+  City VARCHAR(50),
+  Phone VARCHAR(20)
+);
+
+CREATE TABLE Orders (
+  OrderNo INT PRIMARY KEY,
+  CustomerNo VARCHAR(10),
+  Date DATE,
+  Total_Items_Ordered INT,
+  FOREIGN KEY (CustomerNo) REFERENCES Customers(CustomerNo)
+);
+
+
+CREATE TABLE Items (
+  ItemNo VARCHAR(10) PRIMARY KEY,
+  Name VARCHAR(50),
+  Price INT,
+  Quantity_in_store INT
+);
+
+CREATE TABLE Order_Details (
+  OrderNo INT,
+  ItemNo VARCHAR(10),
+  Quantity INT,
+  PRIMARY KEY (OrderNo, ItemNo),
+  FOREIGN KEY (OrderNo) REFERENCES Orders(OrderNo),
+  FOREIGN KEY (ItemNo) REFERENCES Items(ItemNo)
+);
+
+INSERT INTO Customers (CustomerNo, Name, City, Phone) VALUES 
+('C1', 'AHMED ALI', 'LHR', '111111'),
+('C2', 'ALI', 'LHR', '222222'),
+('C3', 'AYESHA', 'LHR', '333333'),
+('C4', 'BILAL', 'KHI', '444444'),
+('C5', 'SADAF', 'KHI', '555555'),
+('C6', 'FARAH', 'ISL', '666666');
+
+INSERT INTO Orders (OrderNo, CustomerNo, Date, Total_Items_Ordered) VALUES 
+(1, 'C1', '2012-12-11', 30),
+(2, 'C2', '2016-12-01', 5),
+(3, 'C3', '2017-01-01', 20),
+(4, 'C4', '2017-01-02', 15);
+
+
+INSERT INTO Items (ItemNo, Name, Price, Quantity_in_store) VALUES 
+('100', 'A', 1000, 100),
+('200', 'B', 2000, 50),
+('300', 'C', 3000, 60),
+('400', 'D', 6000, 40);
+
+INSERT INTO Order_Details (OrderNo, ItemNo, Quantity) VALUES 
+(1, '200', 20),
+(1, '400', 10),
+(2, '200', 5),
+(3, '200', 60);
